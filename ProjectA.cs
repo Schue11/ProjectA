@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class SimBeginScene: Node3D
+public partial class ProjectA: Node3D
 {
 	MeshInstance3D anchor;
 	MeshInstance3D ball;
@@ -15,30 +15,27 @@ public partial class SimBeginScene: Node3D
 	double time;
 
 	Vector3 endA;
-	Vector4 endB;
+	Vector3 endB;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		GD.Print("Hello MEE 381 in EB221");
+		GD.Print("Hello MEE 381 in Godot");
 		xA = 0.0; yA = 1.2; zA = 0.0;
 		anchor = GetNode<MeshInstance3D>("Anchor");
 		ball = GetNode<MeshInstance3D>("Ball1");
-		spring = GetNode<SpringModel>("SpringModel")
+		spring = GetNode<SpringModel>("SpringModel");
 		endA = new Vector3((float)xA, (float)yA, (float)zA);
 		anchor.Position = endA;
 
-		pend = new SimPendulum();
+		spring.GenMesh(0.5f, 0.025f, 2.0f, 2.0f, 62);
+		length = 0.9f;
 
-		length0 = length = 0.9f;
-		spring.GenMesh(0.5f, 0.015f, length, 6.0f, 62);
-		
 		angleInit = Mathf.DegToRad(60.0);
 		float angleF = (float)angleInit;
-		pend.Angle = (double)angleInit;
 
 		endB.X = endA.X + length*Mathf.Sin(angleF);
 		endB.Y = endA.Y - length*Mathf.Cos(angleF);
-		endB.Z = endaA.Z;
+		endB.Z = endA.Z;
 		PlacePendulum(endB);
 
 		time = 0.0;
@@ -47,9 +44,10 @@ public partial class SimBeginScene: Node3D
 
     public override void _Process(double delta)
     {
-      float angleA = 0.0f;
+      float angleF = (float)Math.Sin(3.0 * time);
 	  endB.X = endA.X + length*Mathf.Sin(angleF);
 	  endB.Y = endA.Y - length*Mathf.Cos(angleF);
+	  endB.Z = endA.Z;
 	  PlacePendulum(endB);
 	  time += delta;
 
@@ -57,8 +55,8 @@ public partial class SimBeginScene: Node3D
 
 	private void PlacePendulum(Vector3 endBB)
 	{
-		spring.PlaceEndPoints(endA,endB);
-		ball.Position = endBB
+	
+		ball.Position = endBB;
 	}
 
 }
