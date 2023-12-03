@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://bf5wgmrjocam0"]
+
+[ext_resource type="Texture2D" uid="uid://d07jlcenlsh7m" path="res://Textures/texture_04.png" id="1_owxts"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2qc4l"]
+
+[sub_resource type="Sky" id="Sky_y26s4"]
+sky_material = SubResource("ProceduralSkyMaterial_2qc4l")
+
+[sub_resource type="Environment" id="Environment_sqcn4"]
+background_mode = 2
+sky = SubResource("Sky_y26s4")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x18yw"]
+albedo_texture = ExtResource("1_owxts")
+uv1_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_t72hn"]
+size = Vector2(4, 4)
+
+[sub_resource type="SphereMesh" id="SphereMesh_iuave"]
+radius = 0.25
+height = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_57s3x"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sqcn4")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_x18yw")
+mesh = SubResource("PlaneMesh_t72hn")
+
+[node name="Ball1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.904186, 0)
+mesh = SubResource("SphereMesh_iuave")
+
+[node name="Anchor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75724, 0)
+mesh = SubResource("BoxMesh_57s3x")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.805848, 0.0959947, 0.58429, 0.0367796, 0.976751, -0.211199, -0.59098, 0.191684, 0.783582, 0.723912, 0.593037, 0.794357)
+fov = 121.0
