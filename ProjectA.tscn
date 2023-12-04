@@ -44,14 +44,15 @@ material_override = SubResource("StandardMaterial3D_x18yw")
 mesh = SubResource("PlaneMesh_t72hn")
 
 [node name="Anchor" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75724, 0)
+transform = Transform3D(0.878317, 0, 0.478079, 0, 1, 0, -0.478079, 0, 0.878317, 0, 2.0032, 0)
 mesh = SubResource("BoxMesh_57s3x")
 
 [node name="Ball1" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.904186, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.424882, 0)
 mesh = SubResource("SphereMesh_iuave")
 
 [node name="SpringModel" parent="." instance=ExtResource("3_r5nlm")]
+transform = Transform3D(-0.647428, 0.762126, 0, -0.762126, -0.647428, 0, 0, 0, 1, 0, 0.491135, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.805848, 0.0959947, 0.58429, 0.0367796, 0.976751, -0.211199, -0.59098, 0.191684, 0.783582, 0.723912, 0.593037, 0.794357)

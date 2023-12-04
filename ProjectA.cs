@@ -27,11 +27,14 @@ public partial class ProjectA: Node3D
 		endA = new Vector3((float)xA, (float)yA, (float)zA);
 		anchor.Position = endA;
 
-		spring.GenMesh(0.5f, 0.025f, 2.0f, 2.0f, 62);
-		length = 0.9f;
+		pend = new SimPendulim();
 
+		length0 = length = 0.9f;
+		spring.GenMesh(0.05f, 0.015f, length, 6.0f, 62);
+	
 		angleInit = Mathf.DegToRad(60.0);
 		float angleF = (float)angleInit;
+		pend.Angle = (double)angleInit;
 
 		endB.X = endA.X + length*Mathf.Sin(angleF);
 		endB.Y = endA.Y - length*Mathf.Cos(angleF);
@@ -44,18 +47,26 @@ public partial class ProjectA: Node3D
 
     public override void _Process(double delta)
     {
-      float angleF = (float)Math.Sin(3.0 * time);
-	  endB.X = endA.X + length*Mathf.Sin(angleF);
+    //   float angleF = (float)Math.Sin(3.0 * time);
+	//   float angleA = (float)(0.4*time);
+	//   length = length0 + 0.3f * (float)Math.Cos(4.0*time);
+	float angleA = 0.0f;
+	
+	pend.StepRK2(time, delta);
+	float angleF = (float)pend.Angle;
+	float hz = length*Mathf.Sin(angleF);
+
+	  endB.X = endA.X + hz*Mathf.Cos(angleA);
 	  endB.Y = endA.Y - length*Mathf.Cos(angleF);
-	  endB.Z = endA.Z;
-	  PlacePendulum(endB);
+	  endB.Z = endA.Z + hz*Mathf.Sin(angleA);
+	  PlacePendulum(endB); 
 	  time += delta;
 
     }
 
 	private void PlacePendulum(Vector3 endBB)
 	{
-	
+		spring.PlaceEndPoints(endA,endB);
 		ball.Position = endBB;
 	}
 
